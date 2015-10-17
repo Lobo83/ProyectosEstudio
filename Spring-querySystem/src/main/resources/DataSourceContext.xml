@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+<!-- Se habilita la autodetección de beans anotadas con @Aspect -->
+<aop:aspectj-autoproxy/>
+
+<!-- Definición del dataSource -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/powergim" />
+		<property name="username" value="root" />
+		<property name="password" value="" /><!-- ojo, la conexion a mysql como root va sin pass by default-->
+	</bean>
+<!-- 	 aspecto logger -->
+<bean id="logger" class="lobo.factory.querySystem.aspect.LoggingQuerySystem"/>
+<bean id="queryEngine" class="lobo.factory.querySystemEngine.QueryEngine">
+	<property name="ds" ref="dataSource"></property>
+	<property name="queriesDirectory" value="C:\proyectosSpring\proyectos importados\Spring-querySystem\src\main\resources\querys\"/>
+</bean>
+
+</beans>
