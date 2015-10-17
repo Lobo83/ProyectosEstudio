@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- private Long idUnidad;
+	private String codUnidad;
+	private String nombre;
+	private String descripcion; -->
+	<hibernate-mapping>
+		<class name="lobo.factory.hibernate.pojo.Unidad" table="UNIDAD" discriminator-value="U"  
+		dynamic-update="true"
+        optimistic-lock="dirty">
+        <!-- pra bloqueo optimista selecciona solo las columnas modificadas -->
+			<id name="idUnidad" type="long" unsaved-value="null">
+				<column name="ID_UNIDAD" sql-type="INT" not-null="true"/>
+				<generator class="native"/>
+			</id>
+			<property name="codUnidad" type="string">
+				<column name="COD_UNIDAD" sql-type="varchar" length="45"/>
+			</property>
+			<property name="nombre" type="string">
+				<column name="NOMBRE" sql-type="varchar" length="45"/>
+			</property>
+			<property name="descripcion" type="string">
+				<column name="DESCRIPCION" sql-type="TEXT" />
+			</property>
+		</class>
+	</hibernate-mapping>
