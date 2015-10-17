@@ -1,5 +1,10 @@
 package org.pruebaspringsecurity.bean;
 
+/**
+ * 
+ * @author Lobo
+ *
+ */
 public class UserLoginBean {
 	private String login;
 	private String password;
