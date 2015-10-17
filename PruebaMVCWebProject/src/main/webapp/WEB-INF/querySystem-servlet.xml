@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+<!-- Si se opta por usar manejadores de url, entonces hay que declarar la bean miController para que se haga cargo de la request -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="miInterceptor"/>
+			</list>
+		</property>
+		<property name="mappings">
+			<value>/querySystem=miController</value>
+		</property>
+	</bean>
+
+ 	<!-- TODO crear los beans necesarios para hacer el controlador --> 
+	<bean id="miController" class="org.lobo.web.controller.HelloWorldController" />
+	<bean id="miInterceptor" class="org.lobo.web.mapping.interceptor.MyMappingInterceptor"/>
+
+
+<!-- 	Cogerá la petición que machee con /querySystem y la redirige automaticamente al controlador -->
+<!-- 	<bean id="/querySystem" class="org.lobo.web.controller.HelloWorldController" />  -->
+		<!-- Esta bean es el controlador de vista que indicará a spring que debe 
+		navegar a /NOMBRE_DEVUELTO_POR_CONTROLADOR.JSP -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+<bean id="tarugo" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/powergim" />
+		<property name="username" value="root" />
+		<property name="password" value="" /><!-- ojo, la conexion a mysql como root va sin pass by default-->
+	</bean>
+</beans>
