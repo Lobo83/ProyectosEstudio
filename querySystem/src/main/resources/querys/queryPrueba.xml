@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QUERY>
+	<SQL_QUERY><![CDATA[select cod_unidad from unidad where id_unidad=:ID or 
+	(cod_unidad=:UNIDAD and nombre=:NOMBRE )]]></SQL_QUERY>
+	<PARAMETER NAME="ID" TYPE="INTEGER" />
+	<PARAMETER NAME="UNIDAD" TYPE="VARCHAR" />
+	<PARAMETER NAME="NOMBRE" TYPE="VARCHAR" />
+		
+	
+</QUERY>
